@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>📖 Manual - Gerenciador de Livros</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f0f2f5, #e9ecef);
+            color: #1a1a2e;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+
+        .nav-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            padding: 12px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            color: white;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .nav-top .logo { display: flex; align-items: center; gap: 10px; }
+        .nav-top .logo img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
+        .nav-top .logo h2 { font-size: 1.2rem; }
+        .nav-top .links { display: flex; gap: 12px; flex-wrap: wrap; }
+        .nav-top .links a {
+            color: white;
+            text-decoration: none;
+            padding: 4px 14px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.2);
+            transition: 0.3s;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .nav-top .links a:hover { background: rgba(255,255,255,0.35); }
+        .nav-top .links a.active { background: rgba(255,255,255,0.4); font-weight: 600; }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .card h2 {
+            color: #f5576c;
+            margin-bottom: 15px;
+            border-left: 4px solid #f5576c;
+            padding-left: 12px;
+            font-size: 1.3rem;
+        }
+        .card h3 {
+            color: #c0397a;
+            margin: 15px 0 10px 0;
+        }
+
+        .passo {
+            display: flex;
+            gap: 14px;
+            padding: 10px 0;
+            border-bottom: 1px solid #e9ecef;
+            align-items: flex-start;
+        }
+        .passo:last-child { border-bottom: none; }
+        .passo .num {
+            background: #f5576c;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-weight: bold;
+            font-size: 14px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .passo .desc { flex: 1; }
+        .passo .desc strong { color: #f5576c; }
+
+        .footer {
+            text-align: center;
+            padding: 15px;
+            color: #6c757d;
+            font-size: 0.8rem;
+            border-top: 1px solid #dee2e6;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .nav-top { flex-direction: column; align-items: stretch; text-align: center; }
+            .nav-top .links { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- NAVEGAÇÃO -->
+        <div class="nav-top">
+            <div class="logo">
+                <img src="images/logo-dev.jpg" alt="Logo" onerror="this.src='https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop&crop=face'" />
+                <h2>📚 Gerenciador de Livros</h2>
+            </div>
+            <div class="links">
+                <a href="index.html">🏠 Início</a>
+                <a href="manual.html" class="active">📖 Manual</a>
+                <a href="creditos.html">👤 Créditos</a>
+            </div>
+        </div>
+
+        <!-- CONTEÚDO -->
+        <div class="card">
+            <h2>📖 Manual do Usuário</h2>
+            <p style="margin-bottom:15px;">Aprenda a usar o Gerenciador de Livros com este guia simples.</p>
+
+            <h3>📋 Operações CRUD</h3>
+
+            <div class="passo">
+                <div class="num">1</div>
+                <div class="desc">
+                    <strong>Adicionar (Create)</strong><br />
+                    Preencha os campos <strong>Título</strong>, <strong>Autor</strong> e <strong>Ano</strong> e clique em <strong>"Adicionar"</strong>.
+                </div>
+            </div>
+
+            <div class="passo">
+                <div class="num">2</div>
+                <div class="desc">
+                    <strong>Listar (Read)</strong><br />
+                    Todos os livros cadastrados aparecem na tabela principal, com suas informações.
+                </div>
+            </div>
+
+            <div class="passo">
+                <div class="num">3</div>
+                <div class="desc">
+                    <strong>Buscar (Read com filtro)</strong><br />
+                    Use o campo de busca para encontrar livros por <strong>título</strong> ou <strong>autor</strong>.
+                </div>
+            </div>
+
+            <div class="passo">
+                <div class="num">4</div>
+                <div class="desc">
+                    <strong>Editar (Update)</strong><br />
+                    Clique em <strong>"Editar"</strong> ao lado do livro desejado. Os dados serão carregados no formulário. Após alterar, clique em <strong>"Atualizar"</strong>.
+                </div>
+            </div>
+
+            <div class="passo">
+                <div class="num">5</div>
+                <div class="desc">
+                    <strong>Excluir (Delete)</strong><br />
+                    Clique em <strong>"Excluir"</strong> ao lado do livro. Confirme a exclusão na janela de confirmação.
+                </div>
+            </div>
+
+            <div class="passo">
+                <div class="num">6</div>
+                <div class="desc">
+                    <strong>Estatísticas</strong><br />
+                    O sistema mostra automaticamente: <strong>total de livros</strong>, <strong>autores únicos</strong> e <strong>ano mais antigo</strong>.
+                </div>
+            </div>
+
+            <div class="passo">
+                <div class="num">7</div>
+                <div class="desc">
+                    <strong>Persistência de Dados</strong><br />
+                    Os dados são salvos automaticamente no <strong>localStorage</strong> do navegador. Eles permanecem mesmo após recarregar a página.
+                </div>
+            </div>
+
+            <div style="background:#fff3cd; padding:12px 16px; border-radius:10px; border-left:4px solid #ffc107; margin-top:15px;">
+                💡 <strong>Dica:</strong> Use a tecla <strong>Enter</strong> nos campos do formulário para adicionar o livro rapidamente!
+            </div>
+        </div>
+
+        <!-- RODAPÉ -->
+        <div class="footer">
+            <p>© <span id="anoAtual"></span> Gerenciador de Livros • Feito com ❤️ e JavaScript</p>
+        </div>
+
+    </div>
+
+    <script>
+        document.getElementById('anoAtual').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>

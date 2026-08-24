@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>👤 Créditos - Gerenciador de Livros</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f0f2f5, #e9ecef);
+            color: #1a1a2e;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+
+        .nav-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            padding: 12px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            color: white;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .nav-top .logo { display: flex; align-items: center; gap: 10px; }
+        .nav-top .logo img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
+        .nav-top .logo h2 { font-size: 1.2rem; }
+        .nav-top .links { display: flex; gap: 12px; flex-wrap: wrap; }
+        .nav-top .links a {
+            color: white;
+            text-decoration: none;
+            padding: 4px 14px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.2);
+            transition: 0.3s;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .nav-top .links a:hover { background: rgba(255,255,255,0.35); }
+        .nav-top .links a.active { background: rgba(255,255,255,0.4); font-weight: 600; }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        .card h2 {
+            color: #f5576c;
+            margin-bottom: 15px;
+            border-left: 4px solid #f5576c;
+            padding-left: 12px;
+            font-size: 1.3rem;
+            text-align: left;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #f5576c;
+            margin: 10px auto;
+        }
+
+        .nome-dev {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin: 10px 0 4px 0;
+        }
+        .cargo-dev {
+            font-size: 1rem;
+            color: #6c757d;
+            margin-bottom: 15px;
+        }
+
+        .tecnologias {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        .tecnologias .tag {
+            background: #f8f9fa;
+            padding: 6px 16px;
+            border-radius: 20px;
+            border: 1px solid #dee2e6;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .tecnologias .tag.html { border-color: #E34F26; color: #E34F26; }
+        .tecnologias .tag.css { border-color: #1572B6; color: #1572B6; }
+        .tecnologias .tag.js { border-color: #F7DF1E; color: #b8860b; }
+        .tecnologias .tag.json { border-color: #6f42c1; color: #6f42c1; }
+
+        .links-sociais {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin: 15px 0;
+        }
+        .links-sociais a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+        .links-sociais .github { background: #24292e; color: white; }
+        .links-sociais .github:hover { background: #1a1a1a; transform: scale(1.03); }
+        .links-sociais .linkedin { background: #0077b5; color: white; }
+        .links-sociais .linkedin:hover { background: #005e8c; transform: scale(1.03); }
+
+        .footer {
+            text-align: center;
+            padding: 15px;
+            color: #6c757d;
+            font-size: 0.8rem;
+            border-top: 1px solid #dee2e6;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .nav-top { flex-direction: column; align-items: stretch; text-align: center; }
+            .nav-top .links { justify-content: center; }
+            .avatar { width: 80px; height: 80px; }
+            .nome-dev { font-size: 1.3rem; }
+            .tecnologias .tag { font-size: 0.75rem; padding: 4px 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- NAVEGAÇÃO -->
+        <div class="nav-top">
+            <div class="logo">
+                <img src="images/logo-dev.jpg" alt="Logo" onerror="this.src='https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop&crop=face'" />
+                <h2>📚 Gerenciador de Livros</h2>
+            </div>
+            <div class="links">
+                <a href="index.html">🏠 Início</a>
+                <a href="manual.html">📖 Manual</a>
+                <a href="creditos.html" class="active">👤 Créditos</a>
+            </div>
+        </div>
+
+        <!-- CONTEÚDO -->
+        <div class="card">
+            <h2>👤 Créditos</h2>
+
+            <img src="images/logo-dev.jpg" alt="Avatar" class="avatar"
+                 onerror="this.src='https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&h=200&fit=crop&crop=face'" />
+
+            <div class="nome-dev">Seu Nome</div>
+            <div class="cargo-dev">💻 Desenvolvedor Web</div>
+
+            <p style="max-width:500px; margin:0 auto 15px auto; color:#6c757d;">
+                Este projeto foi desenvolvido como parte do aprendizado de JavaScript, Arrays, JSON e CRUD.
+            </p>
+
+            <div class="tecnologias">
+                <span class="tag html">📄 HTML5</span>
+                <span class="tag css">🎨 CSS3</span>
+                <span class="tag js">⚡ JavaScript</span>
+                <span class="tag json">📦 JSON</span>
+            </div>
+
+            <div class="links-sociais">
+                <a href="https://github.com/seu-usuario" target="_blank" class="github">
+                    🐱 GitHub
+                </a>
+                <a href="https://linkedin.com/in/seu-perfil" target="_blank" class="linkedin">
+                    🔗 LinkedIn
+                </a>
+            </div>
+
+            <div style="margin-top:15px; font-size:0.85rem; color:#6c757d;">
+                📅 Projeto desenvolvido em <span id="anoProjeto"></span>
+            </div>
+        </div>
+
+        <!-- RODAPÉ -->
+        <div class="footer">
+            <p>© <span id="anoAtual"></span> Gerenciador de Livros • Feito com ❤️ e JavaScript</p>
+        </div>
+
+    </div>
+
+    <script>
+        document.getElementById('anoAtual').textContent = new Date().getFullYear();
+        document.getElementById('anoProjeto').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>

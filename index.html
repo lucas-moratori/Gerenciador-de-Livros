@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>📚 Gerenciador de Livros</title>
+    <style>
+        /* --- ESTILOS GERAIS --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f0f2f5, #e9ecef);
+            color: #1a1a2e;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+
+        /* --- NAVEGAÇÃO --- */
+        .nav-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            padding: 12px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            color: white;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .nav-top .logo { display: flex; align-items: center; gap: 10px; }
+        .nav-top .logo img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
+        .nav-top .logo h2 { font-size: 1.2rem; }
+        .nav-top .links { display: flex; gap: 12px; flex-wrap: wrap; }
+        .nav-top .links a {
+            color: white;
+            text-decoration: none;
+            padding: 4px 14px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.2);
+            transition: 0.3s;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .nav-top .links a:hover { background: rgba(255,255,255,0.35); }
+        .nav-top .links a.active { background: rgba(255,255,255,0.4); font-weight: 600; }
+
+        /* --- CARD PRINCIPAL --- */
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .card h2 {
+            color: #f5576c;
+            margin-bottom: 15px;
+            border-left: 4px solid #f5576c;
+            padding-left: 12px;
+            font-size: 1.3rem;
+        }
+
+        /* --- FORMULÁRIO --- */
+        .form-livro {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        .form-livro input {
+            flex: 1;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 2px solid #dee2e6;
+            font-size: 0.95rem;
+            min-width: 120px;
+            transition: 0.3s;
+        }
+        .form-livro input:focus {
+            outline: none;
+            border-color: #f5576c;
+            box-shadow: 0 0 0 3px rgba(245,87,108,0.2);
+        }
+        .form-livro button {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            background: #f5576c;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .form-livro button:hover { transform: scale(1.02); background: #d43f52; }
+        .form-livro button img { width: 18px; height: 18px; filter: brightness(0) invert(1); }
+
+        /* --- BUSCA --- */
+        .busca {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .busca input {
+            flex: 1;
+            padding: 8px 14px;
+            border-radius: 8px;
+            border: 2px solid #dee2e6;
+            font-size: 0.9rem;
+        }
+        .busca input:focus { outline: none; border-color: #f5576c; }
+        .busca button {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            background: #17a2b8;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .busca button:hover { background: #138496; }
+        .busca button img { width: 16px; height: 16px; filter: brightness(0) invert(1); }
+
+        /* --- TABELA --- */
+        .tabela-livros {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .tabela-livros th {
+            background: #f5576c;
+            color: white;
+            padding: 10px 12px;
+            text-align: left;
+        }
+        .tabela-livros td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .tabela-livros tr:hover td { background: #f8f9fa; }
+        .tabela-livros .acoes {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .tabela-livros .acoes button {
+            padding: 4px 12px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.75rem;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .tabela-livros .acoes .btn-editar { background: #ffc107; color: #1a1a2e; }
+        .tabela-livros .acoes .btn-editar:hover { background: #e0a800; }
+        .tabela-livros .acoes .btn-excluir { background: #dc3545; color: white; }
+        .tabela-livros .acoes .btn-excluir:hover { background: #c82333; }
+        .tabela-livros .acoes button img { width: 14px; height: 14px; }
+
+        .sem-livros {
+            text-align: center;
+            padding: 30px;
+            color: #6c757d;
+            font-size: 1.1rem;
+        }
+
+        /* --- ESTATÍSTICAS --- */
+        .stats {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .stats .stat {
+            background: #f8f9fa;
+            padding: 12px 24px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 100px;
+        }
+        .stats .stat .numero { font-size: 1.8rem; font-weight: bold; color: #f5576c; }
+        .stats .stat .label { font-size: 0.8rem; color: #6c757d; }
+
+        /* --- RODAPÉ --- */
+        .footer {
+            text-align: center;
+            padding: 15px;
+            color: #6c757d;
+            font-size: 0.8rem;
+            border-top: 1px solid #dee2e6;
+            margin-top: 10px;
+        }
+
+        /* --- RESPONSIVO --- */
+        @media (max-width: 600px) {
+            .form-livro { flex-direction: column; }
+            .form-livro button { width: 100%; justify-content: center; }
+            .nav-top { flex-direction: column; align-items: stretch; text-align: center; }
+            .nav-top .links { justify-content: center; }
+            .tabela-livros { font-size: 0.75rem; }
+            .tabela-livros th, .tabela-livros td { padding: 6px 8px; }
+            .tabela-livros .acoes button { font-size: 0.65rem; padding: 3px 8px; }
+            .stats { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- NAVEGAÇÃO -->
+        <div class="nav-top">
+            <div class="logo">
+                <img src="images/logo-dev.jpg" alt="Logo" onerror="this.src='https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop&crop=face'" />
+                <h2>📚 Gerenciador de Livros</h2>
+            </div>
+            <div class="links">
+                <a href="index.html" class="active">🏠 Início</a>
+                <a href="manual.html">📖 Manual</a>
+                <a href="creditos.html">👤 Créditos</a>
+            </div>
+        </div>
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <div class="card">
+            <h2>📋 Gerenciar Livros</h2>
+
+            <!-- FORMULÁRIO -->
+            <div class="form-livro">
+                <input type="text" id="inputTitulo" placeholder="Título do livro" />
+                <input type="text" id="inputAutor" placeholder="Autor" />
+                <input type="number" id="inputAno" placeholder="Ano" min="0" max="2026" />
+                <button onclick="adicionarLivro()">
+                    <img src="icons/add.svg" alt="Adicionar" /> Adicionar
+                </button>
+            </div>
+
+            <!-- BUSCA -->
+            <div class="busca">
+                <input type="text" id="inputBusca" placeholder="🔍 Buscar por título ou autor..." oninput="buscarLivros()" />
+                <button onclick="buscarLivros()"><img src="icons/search.svg" alt="Buscar" /> Buscar</button>
+                <button onclick="limparBusca()" style="background:#6c757d;">🔄 Limpar</button>
+            </div>
+
+            <!-- TABELA -->
+            <div id="tabelaContainer">
+                <table class="tabela-livros">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Título</th>
+                            <th>Autor</th>
+                            <th>Ano</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corpoTabela">
+                        <tr>
+                            <td colspan="5" class="sem-livros">📭 Nenhum livro cadastrado</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ESTATÍSTICAS -->
+            <div class="stats" style="margin-top:15px;">
+                <div class="stat">
+                    <div class="numero" id="totalLivros">0</div>
+                    <div class="label">📚 Total de Livros</div>
+                </div>
+                <div class="stat">
+                    <div class="numero" id="totalAutores">0</div>
+                    <div class="label">✍️ Autores Únicos</div>
+                </div>
+                <div class="stat">
+                    <div class="numero" id="anoMaisAntigo">-</div>
+                    <div class="label">📅 Ano Mais Antigo</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RODAPÉ -->
+        <div class="footer">
+            <p>© <span id="anoAtual"></span> Gerenciador de Livros • Feito com ❤️ e JavaScript</p>
+            <p style="font-size:0.7rem; color:#adb5bd;">Dados carregados do arquivo livros.json</p>
+        </div>
+
+    </div>
+
+    <script>
+        // ============================================================
+        // VARIÁVEIS GLOBAIS
+        // ============================================================
+        let livros = [];
+        let editandoIndex = -1;
+
+        // ============================================================
+        // FUNÇÕES CRUD
+        // ============================================================
+
+        // CREATE - Adicionar livro
+        function adicionarLivro() {
+            const titulo = document.getElementById('inputTitulo').value.trim();
+            const autor = document.getElementById('inputAutor').value.trim();
+            const ano = parseInt(document.getElementById('inputAno').value);
+
+            if (!titulo || !autor || isNaN(ano)) {
+                alert('⚠️ Preencha todos os campos corretamente!');
+                return;
+            }
+
+            if (editandoIndex === -1) {
+                // Adicionar novo
+                livros.push({ titulo, autor, ano });
+            } else {
+                // Atualizar existente
+                livros[editandoIndex] = { titulo, autor, ano };
+                editandoIndex = -1;
+                document.querySelector('.form-livro button').innerHTML =
+                    '<img src="icons/add.svg" alt="Adicionar" /> Adicionar';
+            }
+
+            limparCampos();
+            atualizarTabela();
+            atualizarStats();
+            salvarJSON();
+        }
+
+        // READ - Buscar livros
+        function buscarLivros() {
+            const termo = document.getElementById('inputBusca').value.toLowerCase().trim();
+            if (!termo) {
+                atualizarTabela();
+                return;
+            }
+            const filtrados = livros.filter(l =>
+                l.titulo.toLowerCase().includes(termo) ||
+                l.autor.toLowerCase().includes(termo)
+            );
+            renderizarTabela(filtrados);
+        }
+
+        function limparBusca() {
+            document.getElementById('inputBusca').value = '';
+            atualizarTabela();
+        }
+
+        // UPDATE - Preparar edição
+        function editarLivro(index) {
+            const livro = livros[index];
+            document.getElementById('inputTitulo').value = livro.titulo;
+            document.getElementById('inputAutor').value = livro.autor;
+            document.getElementById('inputAno').value = livro.ano;
+            editandoIndex = index;
+            document.querySelector('.form-livro button').innerHTML =
+                '✏️ Atualizar';
+            document.querySelector('.form-livro button').style.background = '#ffc107';
+            document.querySelector('.form-livro button').style.color = '#1a1a2e';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // DELETE - Excluir livro
+        function excluirLivro(index) {
+            if (confirm(`🗑️ Tem certeza que deseja excluir "${livros[index].titulo}"?`)) {
+                livros.splice(index, 1);
+                atualizarTabela();
+                atualizarStats();
+                salvarJSON();
+            }
+        }
+
+        // ============================================================
+        // FUNÇÕES DE EXIBIÇÃO
+        // ============================================================
+
+        function renderizarTabela(lista) {
+            const tbody = document.getElementById('corpoTabela');
+            if (!lista || lista.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="sem-livros">📭 Nenhum livro encontrado</td></tr>';
+                return;
+            }
+
+            let html = '';
+            lista.forEach((livro, i) => {
+                const idx = livros.indexOf(livro);
+                html += `
+                        <tr>
+                            <td>${i + 1}</td>
+                            <td><strong>${livro.titulo}</strong></td>
+                            <td>${livro.autor}</td>
+                            <td>${livro.ano}</td>
+                            <td>
+                                <div class="acoes">
+                                    <button class="btn-editar" onclick="editarLivro(${idx})">
+                                        <img src="icons/edit.svg" alt="Editar" /> Editar
+                                    </button>
+                                    <button class="btn-excluir" onclick="excluirLivro(${idx})">
+                                        <img src="icons/delete.svg" alt="Excluir" /> Excluir
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function atualizarTabela() {
+            renderizarTabela(livros);
+        }
+
+        function atualizarStats() {
+            document.getElementById('totalLivros').textContent = livros.length;
+
+            const autores = new Set(livros.map(l => l.autor));
+            document.getElementById('totalAutores').textContent = autores.size;
+
+            if (livros.length > 0) {
+                const anos = livros.map(l => l.ano);
+                document.getElementById('anoMaisAntigo').textContent = Math.min(...anos);
+            } else {
+                document.getElementById('anoMaisAntigo').textContent = '-';
+            }
+        }
+
+        // ============================================================
+        // FUNÇÕES AUXILIARES
+        // ============================================================
+
+        function limparCampos() {
+            document.getElementById('inputTitulo').value = '';
+            document.getElementById('inputAutor').value = '';
+            document.getElementById('inputAno').value = '';
+            document.querySelector('.form-livro button').innerHTML =
+                '<img src="icons/add.svg" alt="Adicionar" /> Adicionar';
+            document.querySelector('.form-livro button').style.background = '#f5576c';
+            document.querySelector('.form-livro button').style.color = 'white';
+        }
+
+        function atualizarAno() {
+            document.getElementById('anoAtual').textContent = new Date().getFullYear();
+        }
+
+        // ============================================================
+        // JSON - SALVAR E CARREGAR
+        // ============================================================
+
+        function salvarJSON() {
+            try {
+                const json = JSON.stringify(livros, null, 2);
+                localStorage.setItem('livros', json);
+            } catch (e) {
+                console.error('Erro ao salvar:', e);
+            }
+        }
+
+        function carregarJSON() {
+            try {
+                const dados = localStorage.getItem('livros');
+                if (dados) {
+                    livros = JSON.parse(dados);
+                } else {
+                    // Dados iniciais
+                    livros = [
+                        { titulo: "O Senhor dos Anéis", autor: "J.R.R. Tolkien", ano: 1954 },
+                        { titulo: "1984", autor: "George Orwell", ano: 1949 },
+                        { titulo: "O Pequeno Príncipe", autor: "Antoine de Saint-Exupéry", ano: 1943 }
+                    ];
+                    salvarJSON();
+                }
+            } catch (e) {
+                console.error('Erro ao carregar:', e);
+                livros = [];
+            }
+        }
+
+        // ============================================================
+        // EXECUÇÃO PRINCIPAL
+        // ============================================================
+
+        carregarJSON();
+        atualizarTabela();
+        atualizarStats();
+        atualizarAno();
+
+        // ============================================================
+        // EVENTO ENTER
+        // ============================================================
+        document.querySelectorAll('.form-livro input').forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') adicionarLivro();
+            });
+        });
+    </script>
+
+</body>
+</html>
